@@ -18,9 +18,15 @@ contract(`WavestreamPresale (happy path):`, accounts => {
   before(async () => {
     token = await TestToken.new({from: addr.deployer})
 
-    presale = await WavestreamPresale.new(rate, addr.wallet_1, '10e20', token.address, {
-      from: addr.deployer,
-    })
+    presale = await WavestreamPresale.new(
+      rate,
+      addr.priorityWallet,
+      '10e18',
+      addr.wallet,
+      '10e20',
+      token.address,
+      {from: addr.deployer}
+    )
 
     await token.transfer(presale.address, '100000e18', {
       from: addr.deployer,
