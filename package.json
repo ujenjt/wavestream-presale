@@ -10,6 +10,7 @@
     "fix-sol": "solium -d contracts --fix || true",
     "fix-js": "prettier --config .prettierrc.yml --write --list-different 'test/**/*.js' || true",
     "fix": "npm run fix-sol && npm run fix-js",
+    "flatten": "sol-merger './contracts/*.sol' ./flat",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -47,6 +48,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^7.0.1",
     "prettier": "^1.11.1",
+    "sol-merger": "^0.1.2",
     "solidity-coverage": "^0.4.15",
     "solium": "^1.1.6",
     "solium-plugin-zeppelin": "OpenZeppelin/solium-plugin-zeppelin",
