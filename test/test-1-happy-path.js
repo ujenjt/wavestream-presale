@@ -19,7 +19,7 @@ contract(`WavestreamPresale (happy path):`, accounts => {
   let token
 
   before(async () => {
-    token = await TestToken.new({from: addr.owner})
+    token = await TestToken.new(ether(100000), {from: addr.owner})
 
     presale = await WavestreamPresale.new(
       rate,
@@ -31,7 +31,7 @@ contract(`WavestreamPresale (happy path):`, accounts => {
       {from: addr.owner}
     )
 
-    await token.transfer(presale.address, '100000e18', {
+    await token.transfer(presale.address, ether(100000), {
       from: addr.owner,
     })
   })

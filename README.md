@@ -2,7 +2,7 @@
 
 ## TODO
 
-1. Use OpenZeppelin contracts as dependencies
+1. ~~Use OpenZeppelin contracts as dependencies~~
 2. Add linters for solidity and js
 3. Add coverage tool
 4. Add dev documentation

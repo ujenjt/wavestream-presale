@@ -1,9 +1,7 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.18;
 
-import "./SafeMath.sol";
-import "./ERC20.sol";
-import "./CappedCrowdsale.sol";
-import "./Ownable.sol";
+import "zeppelin-solidity/contracts/crowdsale/validation/CappedCrowdsale.sol";
+import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
  * @title WavestreamPresale
@@ -24,13 +22,13 @@ contract WavestreamPresale is CappedCrowdsale, Ownable {
 
   event Closed();
 
-  // The reised funds are being transferred to two wallets. First, until total
+  // The raised funds are being transferred to two wallets. First, until total
   // amout of wei raised is less than or equal to `priorityCap`, raised funds
   // are transferred to `priorityWallet`. After that, raised funds are
   // transferred to `wallet`.
   uint256 public priorityCap;
 
-  // Address where collected first raised _priorityCap ether
+  // Address where first priorityCap raised wei are transferred
   address public priorityWallet;
 
   /**
