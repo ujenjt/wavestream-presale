@@ -1,11 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import {
-  assert,
-  assertRevert,
-  getAddresses,
-  ether,
-} from './helpers'
+import {assert, assertRevert, getAddresses, ether} from './helpers'
 
 const TestToken = artifacts.require('./TestToken.sol')
 const WavestreamPresale = artifacts.require('./WavestreamPresale.sol')
@@ -28,7 +23,7 @@ contract(`WavestreamPresale (happy path):`, accounts => {
       addr.wallet,
       ether(400),
       token.address,
-      {from: addr.owner}
+      {from: addr.owner},
     )
 
     await token.transfer(presale.address, ether(100000), {
@@ -41,7 +36,7 @@ contract(`WavestreamPresale (happy path):`, accounts => {
     assert.equal(owner, addr.owner)
   })
 
-  it('accepts payments', async function () {
+  it('accepts payments', async function() {
     await presale.buyTokens(addr.investor, {
       value: '10e18',
       from: addr.investor,
@@ -49,17 +44,15 @@ contract(`WavestreamPresale (happy path):`, accounts => {
   })
 
   it(`allows owner to close the crowdsale`, async () => {
-    await presale.closeCrowdsale(
-      {from: addr.owner},
-    )
+    await presale.closeCrowdsale({from: addr.owner})
   })
 
-  it('it doesnt accepts payments after sale is closed', async function () {
+  it('it doesnt accepts payments after sale is closed', async function() {
     await assertRevert(
       presale.buyTokens(addr.investor, {
         value: '10e18',
         from: addr.investor,
-      })
+      }),
     )
   })
 })

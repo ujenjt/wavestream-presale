@@ -3,6 +3,7 @@ pragma solidity ^0.4.18;
 import "zeppelin-solidity/contracts/crowdsale/validation/CappedCrowdsale.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
+
 /**
  * @title WavestreamPresale
  * @dev Capped crowdsale with two wallets.

@@ -1,13 +1,28 @@
 {
   "name": "wavestream-presale",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "truffle-config.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "truffle test",
+    "lint": "solium -d contracts",
+    "fix-sol": "solium -d contracts --fix || true",
+    "fix-js": "prettier --config .prettierrc.yml --write --list-different 'test/**/*.js' || true",
+    "fix": "npm run fix-sol && npm run fix-js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "ignore": [
+      "contracts/Migrations.sol"
+    ],
+    "linters": {
+      "*.sol": [
+        "solium -f"
+      ],
+      "*.js": [
+        "prettier --config .prettierrc.yml --list-different"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -28,6 +43,12 @@
     "babel-register": "^6.26.0",
     "bignumber.js": "^6.0.0",
     "chai": "^4.1.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.1",
+    "prettier": "^1.11.1",
+    "solidity-coverage": "^0.4.15",
+    "solium": "^1.1.6",
+    "solium-plugin-zeppelin": "OpenZeppelin/solium-plugin-zeppelin",
     "truffle": "^4.1.5",
     "web3": "^0.20.6"
   },
