@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "test": "truffle test",
+    "coverage": "solidity-coverage",
     "lint": "solium -d contracts",
     "fix-sol": "solium -d contracts --fix || true",
     "fix-js": "prettier --config .prettierrc.yml --write --list-different 'test/**/*.js' || true",
