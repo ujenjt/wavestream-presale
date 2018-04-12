@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ujenjt/wavestream-presale/issues"
   },
-  "homepage": "https://github.com/ujenjt/wavestream-presale#readme"
+  "homepage": "https://github.com/ujenjt/wavestream-presale#readme",
+  "devDependencies": {
+    "truffle": "^4.1.5"
+  }
 }
