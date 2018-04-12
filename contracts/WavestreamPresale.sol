@@ -3,13 +3,26 @@ pragma solidity ^0.4.17;
 import "./SafeMath.sol";
 import "./ERC20.sol";
 import "./CappedCrowdsale.sol";
+import "./Ownable.sol";
 
 /**
  * @title WavestreamPresale
  * @dev Capped crowdsale with two wallets.
  */
-contract WavestreamPresale is CappedCrowdsale {
+contract WavestreamPresale is CappedCrowdsale, Ownable {
   using SafeMath for uint256;
+
+  /**
+   * @dev Modifier to make a function callable only when the contract is not closed.
+   */
+  modifier whenNotClosed() {
+    require(!isClosed);
+    _;
+  }
+
+  bool public isClosed = false;
+
+  event Closed();
 
   // The reised funds are being transferred to two wallets. First, until total
   // amout of wei raised is less than or equal to `priorityCap`, raised funds
@@ -39,6 +52,7 @@ contract WavestreamPresale is CappedCrowdsale {
   ) public
     Crowdsale(_rate, _wallet, _token)
     CappedCrowdsale(_cap)
+    Ownable()
   {
     require(_priorityCap > 0);
     require(_priorityCap < _cap);
@@ -46,6 +60,22 @@ contract WavestreamPresale is CappedCrowdsale {
 
     priorityWallet = _priorityWallet;
     priorityCap = _priorityCap;
+  }
+
+  /**
+   * @dev Close crowdsale, only for owner.
+   */
+  function closeCrowdsale() onlyOwner public {
+    require(!isClosed);
+
+    isClosed = true;
+
+    uint256 tokenBalance = token.balanceOf(address(this));
+    if (tokenBalance > 0) {
+      token.transfer(owner, tokenBalance);
+    }
+
+    Closed();
   }
 
   /**
@@ -67,5 +97,15 @@ contract WavestreamPresale is CappedCrowdsale {
         wallet.transfer(msg.value);
       }
     }
+  }
+
+  /**
+   * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use super to concatenate validations.
+   * Part of OpenZeppelin internal interface.
+   * @param _beneficiary Token purchaser
+   * @param _weiAmount Amount of wei contributed
+   */
+  function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotClosed {
+    super._preValidatePurchase(_beneficiary, _weiAmount);
   }
 }
