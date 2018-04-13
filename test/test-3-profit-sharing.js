@@ -13,7 +13,7 @@ const TestToken = artifacts.require('./TestToken.sol')
 const WavestreamPresale = artifacts.require('./WavestreamPresale.sol')
 
 contract(
-  `WavestreamPresale (profit sharing with divided payment):`,
+  `WavestreamPresale (profit sharing with one divided payment):`,
   accounts => {
     const addr = getAddresses(accounts)
     const rate = 100 // 100 tokens for 1 Ether, assuming token.digits is 18
@@ -81,7 +81,7 @@ contract(
 )
 
 contract(
-  `WavestreamPresale (profit sharing with clear payment division):`,
+  `WavestreamPresale (profit sharing with no divided payments):`,
   accounts => {
     const addr = getAddresses(accounts)
     const rate = 100 // 100 tokens for 1 Ether, assuming token.digits is 18

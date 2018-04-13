@@ -13,7 +13,7 @@ import {
 const TestToken = artifacts.require('./TestToken.sol')
 const WavestreamPresale = artifacts.require('./WavestreamPresale.sol')
 
-contract(`WavestreamPresale (presale deployment):`, accounts => {
+contract(`WavestreamPresale (presale deployment checks):`, accounts => {
   const addr = getAddresses(accounts)
   const rate = 100 // 100 tokens for 1 Ether, assuming token.digits is 18
   let presale
