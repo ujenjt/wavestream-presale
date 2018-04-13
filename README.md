@@ -14,6 +14,35 @@ The contracts are currently available on both Ethereum mainnet and testnet (rink
 
 #### mainnet (coming soon)
 
+## Deployment to the testnet
+
+Use https://etherconverter.online/ to convert big numbers.
+
+0. Get the code of token [TestToken.sol](flat/TestToken.sol)
+1. Get the code of sale contract [WavestreamPresale.sol](flat/WavestreamPresale.sol)
+2. Unlock metamask
+3. Paste the code to the remix.ethereum.org
+4. Deploy TestToken
+```
+constructorArgs:
+"40000000000000000000000"
+// 40000 tokens assuming token.digits is 18
+```
+5. Deploy WavestreamPresale
+```
+constructorArgs:
+
+uint256 _rate,
+address _priorityWallet,
+uint256 _priorityCap,
+address _wallet,
+uint256 _cap,
+ERC20 _token
+
+"100","<priorityWalletAddr>","7000000000000000000","<mainWalletAddr>","20000000000000000000","<testTokenAddr>"
+```
+6. Transfer tokens to smart contract address
+7. Sale is ready to go!
 
 ## TODO
 
