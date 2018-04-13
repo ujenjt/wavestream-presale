@@ -56,6 +56,7 @@ contract WavestreamPresale is CappedCrowdsale, Ownable {
     require(_priorityCap > 0);
     require(_priorityCap < _cap);
     require(_priorityWallet != address(0));
+    require(_priorityWallet != _wallet);
 
     priorityWallet = _priorityWallet;
     priorityCap = _priorityCap;
