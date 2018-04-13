@@ -46,18 +46,6 @@ ERC20 _token
 6. Transfer tokens to smart contract address
 7. Sale is ready to go!
 
-## TODO
-
-1. ~~Use OpenZeppelin contracts as dependencies~~
-2. ~~Add linters for solidity and js~~
-3. ~~Add coverage tool for solidity code~~
-4. ~~Add dev documentation~~
-5. ~~Add crowdsale description~~
-6. ~~Comprehensive tests~~
-7. Code Review
-8. Webservice to track sale progress
-9. Add deploy notes
-
 
 ## Repository structure
 
@@ -132,3 +120,16 @@ npm run flatten
 This project has pre-commit hooks configured. Each time you attempt to commit some code, Solium linter will be ran on all staged Solidity contracts, and Prettier will be ran on all staged JavaScript files in linter mode.
 
 If there are any linter errors or any changes Prettier would make, committing will fail. In this case, inspect commit command output, fix all errors, stage the changes and commit again. Running `npm run fix` will probably fix most of the stuff, but some errors will require manual fixing, e.g. shadowing contract state variable by function-local variable.
+
+
+## TODO
+
+1. ~~Use OpenZeppelin contracts as dependencies~~
+2. ~~Add linters for solidity and js~~
+3. ~~Add coverage tool for solidity code~~
+4. ~~Add dev documentation~~
+5. ~~Add crowdsale description~~
+6. ~~Comprehensive tests~~
+7. ~~Code Review~~
+8. Webservice to track sale progress
+9. ~~Add deploy notes~~
