@@ -22,7 +22,7 @@ The contracts are currently available on both Ethereum mainnet and testnet (rink
 3. ~~Add coverage tool for solidity code~~
 4. ~~Add dev documentation~~
 5. ~~Add crowdsale description~~
-6. Comprehensive tests
+6. ~~Comprehensive tests~~
 7. Code Review
 8. Webservice to track sale progress
 9. Add deploy notes
