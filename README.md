@@ -1,11 +1,13 @@
 # Wavestream (WAV) Token Distribution
 
-The Ethereum contracts for the [Wavestream](https://wavestream.io/) (WAV) token
+Ethereum contracts for [Wavestream](https://wavestream.io/) (WAV) token
 distribution. Check out [off-whitepaper](https://wavestream.io/whitepaper/) for details on how WAV is used to create a zero-cost, adfree music listening experience built on interactive features, fair, transparent artist compensation, and community-driven development.
 
 ![wavestream](wavestream.png)
 
 [OpenZeppelin contracts](https://github.com/OpenZeppelin/zeppelin-solidity/tree/master/contracts) are used as base for sale contract.
+
+Wavestream presale contract forwards collected ether to two wallets: main wallet and priority wallet. At first, until total amount of ether raised is less than or equal to priority cap (`_priorityCap` constructor argument, `priorityCap` public variable), ether gets forwarded to priority wallet (`_priorityWallet` constructor argument, `priorityWallet` public variable). All ether in excess of priority cap is forwarded to main wallet (`_wallet` constructor argument, `wallet` public variable).
 
 
 # Live on Ethereum
@@ -23,7 +25,7 @@ Use https://etherconverter.online/ to convert big numbers.
 0. Get the code of token [TestToken.sol](flat/TestToken.sol)
 1. Get the code of sale contract [WavestreamPresale.sol](flat/WavestreamPresale.sol)
 2. Unlock metamask
-3. Paste the code to the remix.ethereum.org
+3. Paste the code to https://remix.ethereum.org
 4. Deploy TestToken
 ```
 constructorArgs:
