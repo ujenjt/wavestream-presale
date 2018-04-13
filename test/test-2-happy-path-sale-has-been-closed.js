@@ -36,7 +36,7 @@ contract(`WavestreamPresale (happy path sale has been closed):`, accounts => {
     assert.equal(owner, addr.owner)
   })
 
-  it('accepts payment', async function() {
+  it('accepts payment', async () => {
     await presale.buyTokens(addr.investor, {
       value: ether(10),
       from: addr.investor,
@@ -82,7 +82,7 @@ contract(`WavestreamPresale (happy path sale has been closed):`, accounts => {
     await assertRevert(presale.closeCrowdsale({from: addr.owner}))
   })
 
-  it('it doesnt accepts payments after sale is closed', async function() {
+  it('it doesnt accepts payments after sale is closed', async () => {
     await assertRevert(
       presale.buyTokens(addr.investor, {
         value: ether(1),

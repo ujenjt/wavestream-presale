@@ -25,7 +25,7 @@ contract(`WavestreamPresale (happy path cap reached):`, accounts => {
     await token.transfer(presale.address, ether(5000), {from: addr.owner})
   })
 
-  it('accepts payment', async function() {
+  it('accepts payment', async () => {
     await presale.buyTokens(addr.investor, {
       value: ether(10),
       from: addr.investor,
@@ -38,7 +38,7 @@ contract(`WavestreamPresale (happy path cap reached):`, accounts => {
     assert.bignumEqual(tokenBalance, expectedTokenBalance)
   })
 
-  it('accepts payment to hit the cap', async function() {
+  it('accepts payment to hit the cap', async () => {
     await presale.buyTokens(addr.investor, {
       value: ether(40),
       from: addr.investor,
