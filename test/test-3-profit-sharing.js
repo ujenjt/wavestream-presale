@@ -6,7 +6,6 @@ import {
   getAddresses,
   ether,
   getBalance,
-  assertBignumEqual,
   assertTxSucceedsGeneratingEvents,
 } from './helpers'
 
@@ -46,7 +45,7 @@ contract(
       })
 
       const updatedBalance = await getBalance(addr.priorityWallet)
-      assertBignumEqual(updatedBalance, priorityBalance.plus(ether(1)))
+      assert.bignumEqual(updatedBalance, priorityBalance.plus(ether(1)))
       priorityBalance = updatedBalance
     })
 
@@ -57,11 +56,11 @@ contract(
       })
 
       const updatedPriorityBalance = await getBalance(addr.priorityWallet)
-      assertBignumEqual(updatedPriorityBalance, priorityBalance.plus(ether(6)))
+      assert.bignumEqual(updatedPriorityBalance, priorityBalance.plus(ether(6)))
       priorityBalance = updatedPriorityBalance
 
       const updatedMainBalance = await getBalance(addr.wallet)
-      assertBignumEqual(updatedMainBalance, mainBalance.plus(ether(4)))
+      assert.bignumEqual(updatedMainBalance, mainBalance.plus(ether(4)))
       mainBalance = updatedMainBalance
     })
 
@@ -72,10 +71,10 @@ contract(
       })
 
       const updatedPriorityBalance = await getBalance(addr.priorityWallet)
-      assertBignumEqual(updatedPriorityBalance, priorityBalance)
+      assert.bignumEqual(updatedPriorityBalance, priorityBalance)
 
       const updatedMainBalance = await getBalance(addr.wallet)
-      assertBignumEqual(updatedMainBalance, mainBalance.plus(ether(1)))
+      assert.bignumEqual(updatedMainBalance, mainBalance.plus(ether(1)))
       mainBalance = updatedMainBalance
     })
   },
@@ -114,7 +113,7 @@ contract(
       })
 
       const updatedBalance = await getBalance(addr.priorityWallet)
-      assertBignumEqual(updatedBalance, priorityBalance.plus(ether(7)))
+      assert.bignumEqual(updatedBalance, priorityBalance.plus(ether(7)))
       priorityBalance = updatedBalance
     })
 
@@ -125,10 +124,10 @@ contract(
       })
 
       const updatedPriorityBalance = await getBalance(addr.priorityWallet)
-      assertBignumEqual(updatedPriorityBalance, priorityBalance)
+      assert.bignumEqual(updatedPriorityBalance, priorityBalance)
 
       const updatedMainBalance = await getBalance(addr.wallet)
-      assertBignumEqual(updatedMainBalance, mainBalance.plus(ether(1)))
+      assert.bignumEqual(updatedMainBalance, mainBalance.plus(ether(1)))
       mainBalance = updatedMainBalance
     })
   },

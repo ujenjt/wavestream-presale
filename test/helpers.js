@@ -115,6 +115,8 @@ export function assertBignumEqual(bal1, bal2, message) {
   assert.equal(str1, str2, message)
 }
 
+assert.bignumEqual = assertBignumEqual
+
 function recursivelyStringifyBigNumbers(obj) {
   traverse(obj).forEach(function(x) {
     if (x instanceof BigNumber) {
