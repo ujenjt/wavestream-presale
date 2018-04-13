@@ -106,7 +106,7 @@ export async function assertTxSucceeds(txResultPromise, message) {
 }
 
 export function getBalance(address) {
-  return promisifyCall(web3.eth.getBalance, address)
+  return promisifyCall(web3.eth.getBalance, web3.eth, [address])
 }
 
 export function assertBignumEqual(bal1, bal2, message) {
