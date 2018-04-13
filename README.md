@@ -3,6 +3,8 @@
 The Ethereum contracts for the [Wavestream](https://wavestream.io/) (WAV) token
 distribution. Check out [off-whitepaper](https://wavestream.io/whitepaper/) for details on how WAV is used to create a zero-cost, adfree music listening experience built on interactive features, fair, transparent artist compensation, and community-driven development.
 
+![wavestream](wavestream.png)
+
 [OpenZeppelin contracts](https://github.com/OpenZeppelin/zeppelin-solidity/tree/master/contracts) are used as base for sale contract.
 
 
