@@ -52,6 +52,7 @@
     "solidity-coverage": "^0.4.15",
     "solium": "^1.1.6",
     "solium-plugin-zeppelin": "OpenZeppelin/solium-plugin-zeppelin",
+    "traverse": "^0.6.6",
     "truffle": "^4.1.5",
     "web3": "^0.20.6"
   },
