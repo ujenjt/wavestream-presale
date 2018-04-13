@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js'
 
-import {assert, assertRevert, getAddresses, ether} from './helpers'
+import {assert, assertRevert, getAddresses, ether, getBalance} from './helpers'
 
 const TestToken = artifacts.require('./TestToken.sol')
 const WavestreamPresale = artifacts.require('./WavestreamPresale.sol')
 
-contract(`WavestreamPresale (happy path cap reached):`, accounts => {
+contract(`WavestreamPresale (happy path, cap reached):`, accounts => {
   const addr = getAddresses(accounts)
   const rate = 100 // 100 tokens for 1 Ether, assuming token.digits is 18
   let presale
@@ -32,30 +32,35 @@ contract(`WavestreamPresale (happy path cap reached):`, accounts => {
     })
   })
 
+  it(`before cap is reached, capReached returns false`, async () => {
+    const capReached = await presale.capReached()
+    assert.equal(capReached, false)
+  })
+
   it(`credits investor address with tokens`, async () => {
     const tokenBalance = await token.balanceOf(addr.investor)
     const expectedTokenBalance = ether(10).times(rate)
     assert.bignumEqual(tokenBalance, expectedTokenBalance)
   })
 
-  it('accepts payment to hit the cap', async () => {
+  it('accepts payment and hits the cap', async () => {
     await presale.buyTokens(addr.investor, {
       value: ether(40),
       from: addr.investor,
     })
   })
 
-  it(`capReached returns true`, async () => {
+  it(`as soon as cap is reached, capReached returns true`, async () => {
     const capReached = await presale.capReached()
     assert.equal(capReached, true)
   })
 
-  it(`isClosed equals false even if the cap has been reached`, async () => {
+  it(`isClosed equals false even after the cap is reached`, async () => {
     const isClosed = await presale.isClosed()
     assert.equal(isClosed, false)
   })
 
-  it(`it doesnt allow investor to buy tokens`, async () => {
+  it(`doesn't allow investor to buy tokens after the cap is reached`, async () => {
     await assertRevert(
       presale.buyTokens(addr.investor, {
         value: ether(1),
@@ -64,12 +69,19 @@ contract(`WavestreamPresale (happy path cap reached):`, accounts => {
     )
   })
 
-  it(`presale doesnt have tokens and ether on it's balance`, async () => {
-    const presaleBalance = await token.balanceOf(presale.address)
-    assert.bignumEqual(presaleBalance, '0')
+  it(`doesnt have tokens and ether on contract's balance`, async () => {
+    const tokenBalance = await token.balanceOf(presale.address)
+    const etherBalance = await getBalance(presale.address)
+    assert.bignumEqual(tokenBalance, '0', 'token')
+    assert.bignumEqual(etherBalance, '0', 'ether')
   })
 
   it(`allows owner to close the crowdsale`, async () => {
     await presale.closeCrowdsale({from: addr.owner})
+  })
+
+  it(`after crowdsale is closed, isClosed returns true`, async () => {
+    const isClosed = await presale.isClosed()
+    assert.equal(isClosed, true)
   })
 })

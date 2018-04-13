@@ -25,7 +25,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     token = await TestToken.new(ether(100000), {from: addr.owner})
   })
 
-  it('fails to deploy crowdsale with zero priority cap', async () => {
+  it('fails to deploy with zero priority cap', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -39,7 +39,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with negative priority cap', async () => {
+  it('fails to deploy with negative priority cap', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -53,7 +53,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with priority cap equal to main cap', async () => {
+  it('fails to deploy with priority cap equal to main cap', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -67,7 +67,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with priority cap bigger than main cap', async () => {
+  it('fails to deploy with priority cap bigger than main cap', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -81,7 +81,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with zero priority wallet', async () => {
+  it('fails to deploy with zero-address priority wallet', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -95,7 +95,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with zero main wallet', async () => {
+  it('fails to deploy with zero-address main wallet', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,
@@ -109,7 +109,7 @@ contract(`WavestreamPresale (presale deployment checks):`, accounts => {
     )
   })
 
-  it('fails to deploy crowdsale with priority wallet equal to main wallet', async () => {
+  it('fails to deploy with priority wallet equal to main wallet', async () => {
     await assertRevert(
       WavestreamPresale.new(
         rate,

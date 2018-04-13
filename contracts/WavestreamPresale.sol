@@ -11,33 +11,25 @@ import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 contract WavestreamPresale is CappedCrowdsale, Ownable {
   using SafeMath for uint256;
 
-  /**
-   * @dev Modifier to make a function callable only when the contract is not closed.
-   */
-  modifier whenNotClosed() {
-    require(!isClosed);
-    _;
-  }
-
   bool public isClosed = false;
 
   event Closed();
 
-  // The raised funds are being transferred to two wallets. First, until total
+  // The raised funds are being forwarded to two wallets. First, until total
   // amout of wei raised is less than or equal to `priorityCap`, raised funds
-  // are transferred to `priorityWallet`. After that, raised funds are
-  // transferred to `wallet`.
+  // are forwarded to `priorityWallet`. After that, raised funds are
+  // forwarded to `wallet`.
   uint256 public priorityCap;
 
-  // Address where first priorityCap raised wei are transferred
+  // Address where first priorityCap raised wei are forwarded.
   address public priorityWallet;
 
   /**
    * @dev Constructor
    * @param _rate Number of token units a buyer gets per wei
-   * @param _priorityWallet Address where collected first raised _priorityCap wei
-   * @param _priorityCap Max amount of wei to be transferred to _priorityWallet
-   * @param _wallet Address where collected funds will be forwarded to after hitting the _priorityCap
+   * @param _priorityWallet Address where first priorityCap raised wei are forwarded
+   * @param _priorityCap Max amount of wei to be forwarded to _priorityWallet
+   * @param _wallet Address where collected funds will be forwarded after hitting _priorityCap
    * @param _cap Max amount of wei to be contributed
    * @param _token Address of the token being sold
    */
@@ -63,7 +55,7 @@ contract WavestreamPresale is CappedCrowdsale, Ownable {
   }
 
   /**
-   * @dev Close crowdsale, only for owner.
+   * @dev Closes crowdsale. Can be only called by contract owner.
    */
   function closeCrowdsale() onlyOwner public {
     require(!isClosed);
@@ -79,8 +71,8 @@ contract WavestreamPresale is CappedCrowdsale, Ownable {
   }
 
   /**
-   * @dev Determines how ETH is stored/forwarded on purchases. Part of OpenZeppelin
-   * internal interface.
+   * @dev Determines how ETH is stored/forwarded on purchases.
+   * Part of OpenZeppelin internal interface.
    */
   function _forwardFunds() internal {
     if (weiRaised <= priorityCap) {
@@ -100,12 +92,14 @@ contract WavestreamPresale is CappedCrowdsale, Ownable {
   }
 
   /**
-   * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use super to concatenate validations.
+   * @dev Validation of an incoming purchase.
    * Part of OpenZeppelin internal interface.
+   *
    * @param _beneficiary Token purchaser
    * @param _weiAmount Amount of wei contributed
    */
-  function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotClosed {
+  function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal {
+    require(!isClosed);
     super._preValidatePurchase(_beneficiary, _weiAmount);
   }
 }

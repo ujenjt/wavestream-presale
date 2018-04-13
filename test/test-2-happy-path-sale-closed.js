@@ -11,7 +11,7 @@ import {
 const TestToken = artifacts.require('./TestToken.sol')
 const WavestreamPresale = artifacts.require('./WavestreamPresale.sol')
 
-contract(`WavestreamPresale (happy path sale has been closed):`, accounts => {
+contract(`WavestreamPresale (happy path, sale closed):`, accounts => {
   const addr = getAddresses(accounts)
   const rate = 100 // 100 tokens for 1 Ether, assuming token.digits is 18
   let presale
@@ -43,16 +43,16 @@ contract(`WavestreamPresale (happy path sale has been closed):`, accounts => {
     })
   })
 
-  it(`it doesnt allow anonymous to close the crowdsale`, async () => {
+  it(`doesn't allow non-owner to close the crowdsale`, async () => {
     await assertRevert(presale.closeCrowdsale({from: addr.anonymous}))
   })
 
-  it(`owner has 0 tokens before sale has been closed`, async () => {
+  it(`owner has no tokens before sale is closed`, async () => {
     const tokenBalance = await token.balanceOf(addr.owner)
     assert.bignumEqual(tokenBalance, '0')
   })
 
-  it(`presale has tokens on it's balance`, async () => {
+  it(`crowdsale has tokens on its balance before sale is closed`, async () => {
     const presaleBalance = await token.balanceOf(presale.address)
     assert.bignumEqual(presaleBalance, ether(4000))
   })
@@ -68,21 +68,28 @@ contract(`WavestreamPresale (happy path sale has been closed):`, accounts => {
     )
   })
 
-  it(`owner got tokens back`, async () => {
-    const tokenBalance = await token.balanceOf(addr.owner)
-    assert.bignumEqual(tokenBalance, ether(4000))
+  // prettier-ignore
+
+  it(`after closing the crowdsale, owner gets all tokens that were on crowdsale's balance`,
+    async () =>
+  {
+    const ownerTokenBalance = await token.balanceOf(addr.owner)
+    assert.bignumEqual(ownerTokenBalance, ether(4000), `owner's balance`)
+
+    const presaleTokenBalance = await token.balanceOf(presale.address)
+    assert.bignumEqual(presaleTokenBalance, 0, `crowdsale's balance`)
   })
 
-  it(`sets isClosed equals true after crowdsale has been closed`, async () => {
+  it(`isClosed equals true after crowdsale is closed`, async () => {
     const isClosed = await presale.isClosed()
     assert.equal(isClosed, true)
   })
 
-  it(`it doesnt allow owner to close the crowdsale second time`, async () => {
+  it(`doesn't allow owner to close the crowdsale when it's already closed`, async () => {
     await assertRevert(presale.closeCrowdsale({from: addr.owner}))
   })
 
-  it('it doesnt accepts payments after sale is closed', async () => {
+  it(`doesn't accept payments after the crowdsale is closed`, async () => {
     await assertRevert(
       presale.buyTokens(addr.investor, {
         value: ether(1),

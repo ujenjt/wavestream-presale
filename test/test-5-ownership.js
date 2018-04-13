@@ -36,7 +36,7 @@ contract(`WavestreamPresale (ownership):`, accounts => {
     assert.equal(addr.owner, owner)
   })
 
-  it(`anonymous address can't transfer ownership to anonymous`, async () => {
+  it(`non-owner address cannot transfer ownership to a non-owner`, async () => {
     await assertRevert(
       presale.transferOwnership(addr.anonymous, {
         from: addr.anonymous,

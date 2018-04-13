@@ -38,7 +38,7 @@ contract(
       mainBalance = await getBalance(addr.wallet)
     })
 
-    it('sends first payment to priorityWallet', async () => {
+    it('forwards first payment to priorityWallet', async () => {
       await presale.buyTokens(addr.investor, {
         value: ether(1),
         from: addr.investor,
@@ -64,7 +64,7 @@ contract(
       mainBalance = updatedMainBalance
     })
 
-    it('sends payments after fulfilling priority only to mainWallet', async () => {
+    it('after priority cap is reached, forwards all payments to main wallet', async () => {
       await presale.buyTokens(addr.investor, {
         value: ether(1),
         from: addr.investor,
@@ -106,7 +106,7 @@ contract(
       mainBalance = await getBalance(addr.wallet)
     })
 
-    it('sends first payment to priorityWallet', async () => {
+    it('forwards first payment to priorityWallet', async () => {
       await presale.buyTokens(addr.investor, {
         value: ether(7),
         from: addr.investor,
@@ -117,7 +117,7 @@ contract(
       priorityBalance = updatedBalance
     })
 
-    it('sends payments after fulfilling priority only to mainWallet', async () => {
+    it('after priority cap is reached, forwards all payments to main wallet', async () => {
       await presale.buyTokens(addr.investor, {
         value: ether(1),
         from: addr.investor,
