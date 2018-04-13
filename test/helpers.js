@@ -105,6 +105,16 @@ export async function assertTxSucceeds(txResultPromise, message) {
   return txProps
 }
 
+export function getBalance(address) {
+  return promisifyCall(web3.eth.getBalance, address)
+}
+
+export function assertBignumEqual(bal1, bal2, message) {
+  const str1 = new BigNumber(bal1.toString()).toString()
+  const str2 = new BigNumber(bal2.toString()).toString()
+  assert.equal(str1, str2, message)
+}
+
 function recursivelyStringifyBigNumbers(obj) {
   traverse(obj).forEach(function(x) {
     if (x instanceof BigNumber) {
