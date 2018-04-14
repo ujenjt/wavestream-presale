@@ -12,11 +12,32 @@ Wavestream presale contract forwards collected ether to two wallets: main wallet
 
 # Live on Ethereum
 
-The contracts are currently available on both Ethereum mainnet and testnet (rinkeby).
+The contracts are currently available on Ethereum mainnet.
 
-#### Rinkeby Testnet (coming soon)
+## Mainnet
+Wavestream Token (WAV): [0x7c12e49245731a2e33dbd4ef0f723cf7f2db24a0](https://etherscan.io/token/0x7c12e49245731a2e33dbd4ef0f723cf7f2db24a0)
 
-#### mainnet (coming soon)
+Token Distribution (PreSale): [0x7afe338917a3c905571ffb0b7016ecc2ca3972a8](https://etherscan.io/address/0x7afe338917a3c905571ffb0b7016ecc2ca3972a8)
+
+
+## Repository structure
+
+Main contracts:
+
+* [WavestreamPresale.sol](contracts/WavestreamPresale.sol): sale contract; allows to receive tokens in exchange to Ether.
+
+Contracts used for tests (do not deploy):
+
+* [TestToken.sol](contracts/TestToken.sol): token contract; manages token balances.
+
+Tests/specification:
+
+* [test-1-happy-path-cap-reached.js](test/test-1-happy-path-cap-reached.js): specification/documentation covering basic usage of private sale contract in case of hard cap is reached.
+* [test-2-happy-path-sale-closed.js](test/test-2-happy-path-sale-closed.js): specification/documentation covering basic usage of private sale contract in case of manually closing the crowdsale contract.
+* [test-3-profit-sharing.js](test/test-3-profit-sharing.js): tests concerning profit sharing between wallet and priorityWallet.
+* [test-4-presale-deployment.js](test/test-4-presale-deployment.js): tests concerning requirements of WavestreamPresale constructor.
+* [test-5-ownership.js](test/test-5-ownership.js): tests concerning ownership management.
+
 
 ## Deployment to the testnet
 
@@ -47,21 +68,6 @@ ERC20 _token
 ```
 6. Transfer tokens to smart contract address
 7. Sale is ready to go!
-
-
-## Repository structure
-
-Main contracts:
-
-* [WavestreamPresale.sol](contracts/WavestreamPresale.sol): sale contract; allows to receive tokens in exchange to Ether.
-
-Contracts used for tests (do not deploy):
-
-* [TestToken.sol](contracts/TestToken.sol): token contract; manages token balances.
-
-Tests/specification:
-
-* [test-1-happy-path.js](test/test-1-happy-path.js): specification/documentation covering basic usage of sale contract.
 
 
 ## Development
@@ -122,16 +128,3 @@ npm run flatten
 This project has pre-commit hooks configured. Each time you attempt to commit some code, Solium linter will be ran on all staged Solidity contracts, and Prettier will be ran on all staged JavaScript files in linter mode.
 
 If there are any linter errors or any changes Prettier would make, committing will fail. In this case, inspect commit command output, fix all errors, stage the changes and commit again. Running `npm run fix` will probably fix most of the stuff, but some errors will require manual fixing, e.g. shadowing contract state variable by function-local variable.
-
-
-## TODO
-
-1. ~~Use OpenZeppelin contracts as dependencies~~
-2. ~~Add linters for solidity and js~~
-3. ~~Add coverage tool for solidity code~~
-4. ~~Add dev documentation~~
-5. ~~Add crowdsale description~~
-6. ~~Comprehensive tests~~
-7. ~~Code Review~~
-8. Webservice to track sale progress
-9. ~~Add deploy notes~~
